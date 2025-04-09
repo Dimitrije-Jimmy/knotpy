@@ -1,0 +1,25 @@
+Pozdrav,
+
+Sprva želim srečno novo leto, z obiljo zdravja in uspeha.
+
+Decembra mi je uspelo opraviti le 65 od pričakovanih 100 ur vendar sem vseeno naredil
+nekaj napredka pri projektu. Sprva sem se lotil pravilne implementacije
+splinov ki so tokrat delovali, nato sem implementiral bolj napredno simulacijo
+kot smo se zmenili, namely vpeljava privlačnih sil verige.
+Je uspelo vendar je veliko fine tuninga z parametri potrebno za posamezne vozle.
+
+Ker sem pa decembra še reševal advent of code sem se malo bolj naučil uporabe NetworkX
+knjižnice, s tem sem odkril funkcije spring_layout, arf_layout in graphviz_layout, ki 
+naredijo ravno takšno kompleksnejšo simulacijo in minimizacijo energije
+kot smo jo želeli. Rezultati so veliko bolj uspešni z nekaj manjših napak.
+
+Implementiral sem tudi spline z izrisom crossingov v nodih.
+
+Potrebno je še nekaj fine tuninga parametrov, izlepšanje kode ter dokumentacija le te.
+
+Vem da se bližajo izpiti in ste najverjetneje na kratko s časom, 
+bi Vas pa vseeno prosil za kakšno dopoldansko urco za predstavitev
+dela ter posvet za nadaljni postopek in sodelovanje.
+Poleg tega pa pričakujem, da bom tudi ta mesec prikrajšan s časom saj moram opraviti še zadnji ustni izpit konec januarja, pričakujem približno isto količino opravljenih ur.
+
+Lp, Dimitrije

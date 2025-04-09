@@ -1,0 +1,29 @@
+DID:
+ - built sequence for splines
+ - built complex sim for more nuance and attractive forces they are 
+ only local like a chain connecting the two closest nodes in the sequence
+
+
+TO DO:
+ - fixup code to look better
+ - make it fully modular
+ - fix the NetworkX plot by somehow simulating the positions better
+    because it still overlaps in some cases when it shouldnt
+ - write docs
+ - fine tune parameters na simulacijah
+ - na grafe dodat pravilno titles da je descriptive
+ - dodat parametre / arguments da folk lahk customiza stvari
+ - dodat en main thing ki avtomatsko izrise
+ - dodat vse skup v filih v classe perhaps? ker trenutno je 
+  vse po scattered funkcijah in rabs posamezno importat
+ - make a clean commit and pull request
+
+IDEAS:
+ - ka pa ce dam une ekstra pointe posljem skoz complex sim da jih da narazn
+  fuknem v networkx in to bi mogl dat ful bolj narazn lepo spaced out
+  points pol pa vzamem pa removeam te ekstra pointe
+
+OMENT:
+ - tt mesec nimam cajta ker mam ustni izpit
+ - nadaljnje bi sodeloval v kolicini 50 ur na mesec 
+  vendar me nebo v sloveniji, he probably does not give a flying fuck

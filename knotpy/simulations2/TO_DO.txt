@@ -1,0 +1,100 @@
+- Se zmer mi ni vsec kako fucked zgleda ce probam sam narisat karkol, pa ta ideja se mi zdi zlo bad
+- se zmer hocm levereagat njegove draw funkcije sam morm nekok prevert ce sploh lahk izrisejo /
+ nekok je treba enkodirat v njegov planar diagram dodatne kroge da bi mi lahk izrisal
+- kar pa bog ve ce sploh lahko dodam vmes pa se da jih jst dodam tak da se bojo
+ tocno stikal brez da se jebejo vmes je dvomljivo
+- fuck dejansko morm sam izrisat aaaaaah
+
+- pa narobe logiko mam za kater del v sequencu je overpass ker pa underpass
+ ne more bit prvi show of the point ker pol so zapored sam underpassi pizda
+ kako on ve da so overpassi, fuck zej bi ga mogu vprasat
+
+
+Instructions za GPT:
+
+okej lets adjust the build_skip_indices function:
+
+- ive noticed a rule is not to skip the first instance of the str 'a', 'b', etc. when it appears
+ and then leave it on subsequent appearances,
+- no the rule is to look at the frozenset in between each string node and if the 
+ frozenset keys before and after tjhe string key contain an even index next to the string,
+ then that string is made to be skipped
+example:
+[['b', frozenset({b1, c0}), 'c', frozenset({c2, a3}), 'a', frozenset({b0, a1}), 'b', 
+   frozenset({b2, c3}), 'c', frozenset({c1, a0}), 'a', frozenset({b3, a2}), 'b']]
+
+'b' begins and ends so it is not skipped, but it's skipped in second appeareance when its surrounded by b0 and b2
+'c' is connected by two frozensets with index inside that contains c0 and c2, both 0 and 2 are even numbers thus 'c' is skipped
+the next time 'c' appears its surrounded by odd indexes c3 and c1 therefore it's not skipped
+'a' is skipped on the second appearance in this array as its then surrounded by a0 and a2
+thus the final array
+thus the final exception indexes would look like this:
+[{2, 6, 9}]
+
+
+This is the function I used to process and create the sequence, see how the logic for 
+ frozensets is implemented in here and perhaps we could just create the exceptions
+ logic within this function or maybe just better to keep it separate functions
+
+# Start of Sequence functions _________________________________________________
+
+def process_path(path, ret):
+    """
+    Process a single path to create a sequence of nodes and edges.
+
+    Parameters:
+    - path: A list of node identifiers (e.g., ['a1', 'd2', 'd0', 'e1', 'e3', 'b2']).
+    - ret: A dictionary where keys are edges (frozensets or tuples of node identifiers) and values are circle objects.
+
+    Returns:
+    - A list containing the sequence of node labels and edges.
+    """
+    result = []
+    node_labels = [str(node)[0] for node in path]  # Extract node labels (e.g., 'a1' -> 'a')
+    current_label = node_labels[0]
+    result.append(current_label)
+    
+    for i in range(len(path) - 1):
+        node1 = path[i]
+        node2 = path[i+1]
+        label1 = str(node1)[0]
+        label2 = str(node2)[0]
+        
+        if label1 != label2:
+            # Try to find the edge in ret
+            edge = None
+            edge_keys = [
+                frozenset({node1, node2}),
+                frozenset({node2, node1})
+            ]
+            for key in edge_keys:
+                if key in ret:
+                    edge = key
+                    break
+            if edge:
+                #result.append(label1)
+                result.append(edge)
+                result.append(label2)
+            else:
+                raise KeyError(f"Edge between {node1} and {node2} not found in ret.")
+        else:
+            # Skip edges between nodes of the same label
+            continue
+    #print(result)
+    return result
+
+def process_paths(paths, ret):
+    """
+    Process multiple paths by applying process_path to each.
+
+    Parameters:
+    - paths: A list of paths, where each path is a list of node identifiers.
+    - ret: A dictionary where keys are edges (frozensets or tuples of node identifiers) and values are circle objects.
+
+    Returns:
+    - A list of processed paths.
+    """
+    return [process_path(path, ret) for path in paths]
+
+
+
